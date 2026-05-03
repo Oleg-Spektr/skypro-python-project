@@ -26,7 +26,7 @@ def mask_account_card(data: str) -> str:
 
     return f"{name} {masked_number}"
 
-
+# Функция связанная с датой
 def get_date(date_str: str) -> str:
     """Функция возвращает дату в формате ДД.ММ.ГГГГ, используя модуль datetime."""
     date_obj = datetime.fromisoformat(date_str)
