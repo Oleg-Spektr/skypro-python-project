@@ -14,3 +14,4 @@ poetry run pytest homework/tests/ --cov=homework/src --cov-report=term-missing
 poetry run pytest homework/tests/ --cov=homework/src --cov-report=html
 ```
 Отчет генерируется в папку `htmlcov/`. Чтобы посмотреть его, откройте файл `htmlcov/index.html` в любом браузере.
+.
