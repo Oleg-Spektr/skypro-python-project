@@ -5,13 +5,13 @@
 ### Запуск тестов и проверка покрытия:
 Для запуска тестов с выводом отчета о покрытии кода в терминал выполните команду:
 ```bash
-poetry run pytest homework/tests/ --cov=homework/src --cov-report=term-missing
+python -m pytest tests/ --cov=. --cov-report=html
 ```
 
 ### Генерация HTML-отчета:
 Для создания подробного визуального отчета о покрытии в формате HTML выполните:
 ```bash
-poetry run pytest homework/tests/ --cov=homework/src --cov-report=html
+python -m pytest tests/ --cov=. --cov-report=html
 ```
 Отчет генерируется в папку `htmlcov/`. Чтобы посмотреть его, откройте файл `htmlcov/index.html` в любом браузере.
 .
