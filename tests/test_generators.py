@@ -1,5 +1,6 @@
 import pytest
-from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
+
+from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 
 
 @pytest.fixture
@@ -22,11 +23,12 @@ def sample_transactions():
             "state": "EXECUTED",
             "operationAmount": {"amount": "500.00", "currency": {"name": "USD", "code": "USD"}},
             "description": "Оплата услуг",
-        }
+        },
     ]
 
 
 # ==================== 1) ТЕСТЫ FILTER_BY_CURRENCY ====================
+
 
 def test_filter_by_currency_usd(sample_transactions):
     """Проверка корректной фильтрации транзакций по заданной валюте."""
@@ -53,10 +55,7 @@ def test_filter_by_currency_corrupted_data():
     """Проверка, что генератор пропускает транзакции с битой структурой."""
     corrupted_transactions = [
         {"id": 111, "operationAmount": {}},  # Нет ключа currency
-        {
-            "id": 222,
-            "operationAmount": {"currency": {"name": "USD", "code": "USD"}}
-        }  # Хорошая транзакция
+        {"id": 222, "operationAmount": {"currency": {"name": "USD", "code": "USD"}}},  # Хорошая транзакция
     ]
     generator = filter_by_currency(corrupted_transactions, "USD")
     result = list(generator)
@@ -66,6 +65,7 @@ def test_filter_by_currency_corrupted_data():
 
 
 # ==================== 2) ТЕСТЫ TRANSACTION_DESCRIPTIONS ====================
+
 
 def test_transaction_descriptions_correct(sample_transactions):
     """Проверка возврата корректных описаний для каждой транзакции."""
@@ -89,6 +89,7 @@ def test_transaction_descriptions_missing_key():
 
 
 # ==================== 3) ТЕСТЫ CARD_NUMBER_GENERATOR ====================
+
 
 def test_card_number_generator_range_and_formatting():
     """Проверка выдачи номеров в диапазоне и корректности форматирования."""
