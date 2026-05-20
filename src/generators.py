@@ -8,14 +8,9 @@ def filter_by_currency(transactions: List[Dict[str, Any]], currency: str) -> Gen
     """
     for transaction in transactions:
         try:
-            operation_amount = transaction.get("operationAmount")
-            if isinstance(operation_amount, dict):
-                currency_info = operation_amount.get("currency")
-                if isinstance(currency_info, dict):
-                    current_currency = currency_info.get("code")
-                    if current_currency == currency:
-                        yield transaction
-        except KeyError, TypeError, AttributeError:
+            if transaction["operationAmount"]["currency"]["code"] == currency:
+                yield transaction
+        except Exception:
             continue
 
 
