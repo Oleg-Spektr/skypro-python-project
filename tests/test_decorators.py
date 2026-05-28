@@ -1,12 +1,15 @@
 import os
-import pytest
-from src.decorators import log
 
+import pytest
+
+from src.decorators import log
 
 # ==================== ТЕСТЫ ВЫВОДА В КОНСОЛЬ (Capsys) ====================
 
+
 def test_log_console_success(capsys):
     """Проверка логирования успешного выполнения функции в консоль."""
+
     @log()
     def add(x, y):
         return x + y
@@ -21,6 +24,7 @@ def test_log_console_success(capsys):
 
 def test_log_console_error(capsys):
     """Проверка логирования ошибки функции в консоль."""
+
     @log()
     def divide(x, y):
         return x / y
@@ -35,6 +39,7 @@ def test_log_console_error(capsys):
 
 
 # ==================== ТЕСТЫ ЗАПИСИ В ФАЙЛ ====================
+
 
 def test_log_file_success():
     """Проверка логирования успешного выполнения функции в файл."""
