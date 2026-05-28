@@ -4,3 +4,7 @@ venv/
 __pycache__/
 *.pyc
 .pytest_cache/
+.coverage
+.mypy_cache/
+test_success_log.txt
+test_error_log.txt
