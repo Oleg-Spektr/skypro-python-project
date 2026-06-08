@@ -1,3 +1,24 @@
+import logging
+import os
+
+# Создаем папку logs, если её нет
+os.makedirs("logs", exist_ok=True)
+
+# Инициализируем логер для модуля utils
+logger = logging.getLogger("utils")
+logger.setLevel(logging.INFO)
+
+# Настраиваем отдельный файл-обработчик
+file_handler = logging.FileHandler("logs/masks.log", mode="w", encoding="utf-8")
+file_handler.setLevel(logging.INFO)
+
+# Применяем тот же формат записей
+formatter = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(message)s")
+file_handler.setFormatter(formatter)
+
+logger.addHandler(file_handler)
+
+
 def get_mask_card_number(card_number: str) -> str:
     """Функция переводит числа в строку, а также заменяет часть символов на звёзды"""
     card_str = str(card_number)
