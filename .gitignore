@@ -1,5 +1,11 @@
 .idea/
 venv/
+.venv/
 __pycache__/
 *.pyc
 .pytest_cache/
+.env
+.mypy_cache/
+logs/
+*.csv
+*.xlsx

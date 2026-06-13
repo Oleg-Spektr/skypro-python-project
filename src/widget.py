@@ -1,6 +1,7 @@
 # Импорт модуля datetime и функций из masks.py
 from datetime import datetime
-from homework.src.masks import get_mask_card_number, get_mask_account
+
+from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(data: str) -> str:
@@ -25,6 +26,7 @@ def mask_account_card(data: str) -> str:
         masked_number = get_mask_card_number(number)
 
     return f"{name} {masked_number}"
+
 
 # Функция связанная с датой
 def get_date(date_str: str) -> str:
