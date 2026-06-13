@@ -4,8 +4,8 @@ import pandas as pd
 
 from src.csv_xlsx_loader import load_transactions_from_csv, load_transactions_from_xlsx
 
-# --- Тесты для функции load_transactions_from_csv ---
 
+# --- Тесты для функции load_transactions_from_csv ---
 @patch("src.csv_xlsx_loader.os.path.exists")
 @patch("src.csv_xlsx_loader.pd.read_csv")
 def test_load_csv_success(mock_read_csv, mock_exists):
@@ -60,4 +60,48 @@ def test_load_xlsx_file_not_found(mock_exists):
     """Тест ситуации, когда XLSX-файл отсутствует на диске."""
     mock_exists.return_value = False
     result = load_transactions_from_xlsx("non_existent.xlsx")
+    assert result == []
+
+
+@patch("src.csv_xlsx_loader.os.path.exists")
+@patch("src.csv_xlsx_loader.pd.read_csv")
+def test_load_csv_empty_dataframe(mock_read_csv, mock_exists):
+    """Тест ситуации, когда CSV-файл пустой (df.empty == True)."""
+    mock_exists.return_value = True
+    mock_read_csv.return_value = pd.DataFrame()  # Пустой DataFrame
+
+    result = load_transactions_from_csv("empty.csv")
+    assert result == []
+
+
+@patch("src.csv_xlsx_loader.os.path.exists")
+@patch("src.csv_xlsx_loader.pd.read_csv")
+def test_load_csv_exception(mock_read_csv, mock_exists):
+    """Тест обработки исключения при чтении битого CSV-файла."""
+    mock_exists.return_value = True
+    mock_read_csv.side_effect = Exception("Parser Error")
+
+    result = load_transactions_from_csv("corrupted.csv")
+    assert result == []
+
+
+@patch("src.csv_xlsx_loader.os.path.exists")
+@patch("src.csv_xlsx_loader.pd.read_excel")
+def test_load_xlsx_empty_dataframe(mock_read_excel, mock_exists):
+    """Тест ситуации, когда XLSX-файл пустой (df.empty == True)."""
+    mock_exists.return_value = True
+    mock_read_excel.return_value = pd.DataFrame()
+
+    result = load_transactions_from_xlsx("empty.xlsx")
+    assert result == []
+
+
+@patch("src.csv_xlsx_loader.os.path.exists")
+@patch("src.csv_xlsx_loader.pd.read_excel")
+def test_load_xlsx_exception(mock_read_excel, mock_exists):
+    """Тест обработки исключения при чтении битого XLSX-файла."""
+    mock_exists.return_value = True
+    mock_read_excel.side_effect = Exception("Value Error")
+
+    result = load_transactions_from_xlsx("corrupted.xlsx")
     assert result == []
