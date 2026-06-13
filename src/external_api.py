@@ -18,7 +18,7 @@ def convert_to_rub(transaction: Dict[str, Any]) -> float:
         # Безопасно извлекаем сумму и код валюты из вложенного словаря
         amount = float(transaction["operationAmount"]["amount"])
         currency_code = transaction["operationAmount"]["currency"]["code"]
-    except (KeyError, ValueError, TypeError):
+    except KeyError, ValueError, TypeError:
         # Если структура нарушена или отсутствуют ключи, возвращаем 0.0
         return 0.0
 
